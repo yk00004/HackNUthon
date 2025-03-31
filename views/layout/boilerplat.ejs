@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Kitchen AI</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+  <div class="app">
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="nav-brand">
+          <i data-lucide="chef-hat" class="brand-icon"></i>
+          <span class="brand-text">Smart Kitchen AI</span>
+        </div>
+        <div style="text-decoration: none;">
+        <a class="nav-link " href="/signup">Sign Up</a>
+        <a class="nav-link" href="/login">Log In</a>
+        <button id="themeToggle" class="theme-toggle">
+          <i data-lucide="sun" class="theme-icon"></i>
+        </button>
+      </div>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <button data-section="inventory" class="sidebar-btn active" onclick="window.location.href='/inventory'">
+        <div class="iconside">
+          <i data-lucide="refrigerator" class="sidebar-icon"></i>
+        </div>
+        <div class="textside">
+          <h4>Inventory</h4>
+        </div>
+      </button>
+
+      <button data-section="prediction" class="sidebar-btn" onclick="window.location.href='/prediction'">
+        <div class="iconside">
+          <i data-lucide="brain" class="sidebar-icon"></i>
+        </div>
+        <div class="textside">
+          <h4>Predictions</h4>
+        </div>
+      </button>
+      <button data-section="menu" class="sidebar-btn" >
+        <div class="iconside">
+          <i data-lucide="utensils" class="sidebar-icon"></i>
+        </div>
+        <div class="textside">
+          <h4>Menu</h4>
+        </div>
+      </button>
+    </div>
+
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <%- body %>
+      in boiler
+    </div>
+
+
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Kitchen AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+            .inventory-form {
+                display: flex; 
+                align-items: center;
+                gap: 3px;
+            } 
+        
+            .form-label {
+                font-size: 1.2rem;
+                color: #5eb3ff;
+            }
+        
+            .input-field {
+                background: #1c2b4b;
+                border: none;
+                border-radius: 10px;
+                padding: 10px;
+                color: #ffffff;
+            }
+        
+            .input-field::-webkit-file-upload-button {
+                background: #5eb3ff;
+                border: none;
+                padding: 8px 16px;
+                color: #ffffff;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 0.9rem;
+                transition: all 0.3s;
+            }
+        
+            .input-field::-webkit-file-upload-button:hover {
+                background: #3284e6;
+            }
+        
+            .scan-button {
+                background: linear-gradient(90deg, #5eb3ff, #3284e6);
+                border: none;
+                padding: 10px 20px;
+                color: #ffffff;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 5px;
+                border-radius: 10px;
+                cursor: pointer;
+                transition: all 0.3s;
+            }
+        
+            .scan-button:hover {
+                background: linear-gradient(90deg, #3284e6, #5eb3ff);
+                transform: scale(1.05);
+            }
+        
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <i data-lucide="chef-hat" class="brand-icon"></i>
+                    <span class="brand-text">AI KitchenMate</span>
+                </div>
+                <button id="themeToggle" class="theme-toggle">
+                    <i data-lucide="sun" class="theme-icon"></i>
+                </button>
+
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <button data-section="inventory" class="sidebar-btn active" onclick="window.location.href='/inventory'">
+                <div class="iconside">
+                    <i data-lucide="refrigerator" class="sidebar-icon"></i>
+                </div>
+                <div class="textside">
+                    <h4>Inventory</h4>
+                </div>
+            </button>
+            <button data-section="prediction" class="sidebar-btn" onclick="window.location.href='/prediction'">
+                <div class="iconside">
+                    <i data-lucide="brain" class="sidebar-icon"></i>
+                </div>
+                <div class="textside">
+                    <h4>Predictions</h4>
+                </div>
+            </button>
+            <button data-section="menu" class="sidebar-btn" onclick="window.location.href='/menu'">
+                <div class="iconside">
+                    <i data-lucide="utensils" class="sidebar-icon"></i>
+                </div>
+                <div class="textside">
+                    <h4>Menu</h4>
+                </div>
+            </button>
+        </div>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div id="inventory" class="section active">
+                <div class="section-header">
+                    <h1>Smart Inventory Management</h1>
+
+                    <form action="/inventory/adddata" method="post" class="inventory-form">
+                        <div class="mb-3">
+                            <label for="image" class="form-label"></label>
+                            <input class="input-field" type="file" name="image">
+                        </div>
+                        <button class="scan-button">
+                            <i data-lucide="camera" class="btn-icon"></i>
+                            Scan Inventory
+                        </button>
+                    </form>
+
+                </div>
+
+                <div class="grid">
+                    <!-- Live Camera Feed -->
+                    <div class="card">
+                        <h2>Live Camera Feed</h2>
+                        <div class="camera-feed">
+                            <i data-lucide="camera" class="feed-icon"></i>
+                        </div>
+                    </div>
+
+                    <!-- Stock Levels -->
+                    <div class="card">
+                        <h2>Stock Levels</h2>
+                        <div class="stock-levels">
+                            <div class="stock-item">
+                                <span>Vegetables</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 75%"></div>
+                                </div>
+                            </div>
+                            <div class="stock-item">
+                                <span>Meat</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 60%"></div>
+                                </div>
+                            </div>
+                            <div class="stock-item">
+                                <span>Dairy</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div class="stock-item">
+                                <span>Grains</span>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Spoilage Alerts -->
+                    <div class="card">
+                        <h2>Spoilage Alerts</h2>
+                        <div class="alerts">
+                            <div class="alert">
+                                <i data-lucide="alert-triangle" class="alert-icon"></i>
+                                <span>Tomatoes expires in 2 days</span>
+                            </div>
+                            <div class="alert">
+                                <i data-lucide="alert-triangle" class="alert-icon"></i>
+                                <span>Lettuce expires in 1 day</span>
+                            </div>
+                            <div class="alert">
+                                <i data-lucide="alert-triangle" class="alert-icon"></i>
+                                <span>Milk expires in 3 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

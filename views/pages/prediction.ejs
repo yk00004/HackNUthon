@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Kitchen AI</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <div class="app">
+        <nav class="navbar">
+            <div class="nav-content">
+                <div class="nav-brand">
+                    <i data-lucide="chef-hat" class="brand-icon"></i>
+                    <span class="brand-text">AI KitchenMate</span>
+                </div>
+                <button id="themeToggle" class="theme-toggle">
+                    <i data-lucide="sun" class="theme-icon"></i>
+                </button>
+
+            </div>
+        </nav>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+            <button data-section="inventory" class="sidebar-btn active" onclick="window.location.href='/inventory'">
+                <div class="iconside">
+                    <i data-lucide="refrigerator" class="sidebar-icon"></i>
+                </div>
+                <div class="textside">
+                    <h4>Inventory</h4>
+                </div>
+            </button>
+
+            <button data-section="prediction" class="sidebar-btn" onclick="window.location.href='/prediction'">
+                <div class="iconside">
+                    <i data-lucide="brain" class="sidebar-icon"></i>
+                </div>
+                <div class="textside">
+                    <h4>Predictions</h4>
+                </div>
+            </button>
+            <button data-section="menu" class="sidebar-btn" onclick="window.location.href='/menu'">
+                <div class="iconside">
+                    <i data-lucide="utensils" class="sidebar-icon"></i>
+                </div>
+                <div class="textside">
+                    <h4>Menu</h4>
+                </div>
+            </button>
+        </div>
+
+
+        <!-- Main Content -->
+
+        <div class="main-content">
+
+            <!-- <div id="prediction" class="section"> -->
+
+            <div class="section-header">
+                <h1>AI Predictions & Analytics</h1>
+                <button class="action-btn">
+                    <i data-lucide="refresh-cw" class="btn-icon"></i>
+                    Update Predictions
+                </button>
+            </div>
+            <div class="grid">
+                <!-- Sales Forecast -->
+                <div class="card">
+                    <h2>Sales Forecast</h2>
+                    <div class="chart">
+                        <div class="bar" style="height: 65%"></div>
+                        <div class="bar" style="height: 45%"></div>
+                        <div class="bar" style="height: 75%"></div>
+                        <div class="bar" style="height: 55%"></div>
+                        <div class="bar" style="height: 85%"></div>
+                        <div class="bar" style="height: 35%"></div>
+                        <div class="bar" style="height: 95%"></div>
+                    </div>
+                </div>
+                <!-- Waste Prediction -->
+                <div class="card">
+                    <h2>Waste Prediction</h2>
+                    <div class="predictions">
+                        <div class="prediction-item">
+                            <span>Vegetables</span>
+                            <span class="badge high">high risk</span>
+                        </div>
+                        <div class="prediction-item">
+                            <span>Dairy</span>
+                            <span class="badge medium">medium risk</span>
+                        </div>
+                        <div class="prediction-item">
+                            <span>Meat</span>
+                            <span class="badge low">low risk</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Suggested Orders -->
+                <div class="card">
+                    <h2>Suggested Orders</h2>
+                    <div class="orders">
+                        <div class="order-item">
+                            <span>Tomatoes</span>
+                            <div class="order-amount">
+                                <span>5 kg</span>
+                                <button class="icon-btn">
+                                    <i data-lucide="shopping-cart" class="order-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="order-item">
+                            <span>Chicken</span>
+                            <div class="order-amount">
+                                <span>10 kg</span>
+                                <button class="icon-btn">
+                                    <i data-lucide="shopping-cart" class="order-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="order-item">
+                            <span>Rice</span>
+                            <div class="order-amount">
+                                <span>15 kg</span>
+                                <button class="icon-btn">
+                                    <i data-lucide="shopping-cart" class="order-icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+
+
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

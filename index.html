@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Kitchen AI</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+  <div class="app">
+    <nav class="navbar">
+      <div class="nav-content">
+        <div class="nav-brand">
+          <i data-lucide="chef-hat" class="brand-icon"></i>
+          <span class="brand-text">Smart Kitchen AI</span>
+        </div>
+        <button id="themeToggle" class="theme-toggle">
+          <i data-lucide="sun" class="theme-icon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <button data-section="inventory" class="sidebar-btn active">
+        <div class="iconside">
+          <i data-lucide="refrigerator" class="sidebar-icon"></i>
+        </div>
+        <div class="textside">
+          <h4>Inventory</h4>
+        </div>
+      </button>
+      <button data-section="prediction" class="sidebar-btn">
+        <div class="iconside">
+          <i data-lucide="brain" class="sidebar-icon"></i>
+        </div>
+        <div class="textside">
+          <h4>Predictions</h4>
+        </div>
+      </button>
+      <button data-section="menu" class="sidebar-btn">
+        <div class="iconside">
+        <i data-lucide="utensils" class="sidebar-icon"></i>
+      </div>
+        <div class="textside">
+          <h4>Menu</h4>
+        </div>
+      </button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Inventory Section -->
+      <section id="inventory" class="section active">
+        <div class="section-header">
+          <h1>Smart Inventory Management</h1>
+          <button class="action-btn">
+            <i data-lucide="camera" class="btn-icon"></i>
+            Scan Inventory
+          </button>
+        </div>
+
+        <div class="grid">
+          <!-- Live Camera Feed -->
+          <div class="card">
+            <h2>Live Camera Feed</h2>
+            <div class="camera-feed">
+              <i data-lucide="camera" class="feed-icon"></i>
+            </div>
+          </div>
+
+          <!-- Stock Levels -->
+          <div class="card">
+            <h2>Stock Levels</h2>
+            <div class="stock-levels">
+              <div class="stock-item">
+                <span>Vegetables</span>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 75%"></div>
+                </div>
+              </div>
+              <div class="stock-item">
+                <span>Meat</span>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 60%"></div>
+                </div>
+              </div>
+              <div class="stock-item">
+                <span>Dairy</span>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 45%"></div>
+                </div>
+              </div>
+              <div class="stock-item">
+                <span>Grains</span>
+                <div class="progress-bar">
+                  <div class="progress" style="width: 90%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Spoilage Alerts -->
+          <div class="card">
+            <h2>Spoilage Alerts</h2>
+            <div class="alerts">
+              <div class="alert">
+                <i data-lucide="alert-triangle" class="alert-icon"></i>
+                <span>Tomatoes expires in 2 days</span>
+              </div>
+              <div class="alert">
+                <i data-lucide="alert-triangle" class="alert-icon"></i>
+                <span>Lettuce expires in 1 day</span>
+              </div>
+              <div class="alert">
+                <i data-lucide="alert-triangle" class="alert-icon"></i>
+                <span>Milk expires in 3 days</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Prediction Section -->
+      <section id="prediction" class="section">
+        <div class="section-header">
+          <h1>AI Predictions & Analytics</h1>
+          <button class="action-btn">
+            <i data-lucide="refresh-cw" class="btn-icon"></i>
+            Update Predictions
+          </button>
+        </div>
+
+        <div class="grid">
+          <!-- Sales Forecast -->
+          <div class="card">
+            <h2>Sales Forecast</h2>
+            <div class="chart">
+              <div class="bar" style="height: 65%"></div>
+              <div class="bar" style="height: 45%"></div>
+              <div class="bar" style="height: 75%"></div>
+              <div class="bar" style="height: 55%"></div>
+              <div class="bar" style="height: 85%"></div>
+              <div class="bar" style="height: 35%"></div>
+              <div class="bar" style="height: 95%"></div>
+            </div>
+          </div>
+
+          <!-- Waste Prediction -->
+          <div class="card">
+            <h2>Waste Prediction</h2>
+            <div class="predictions">
+              <div class="prediction-item">
+                <span>Vegetables</span>
+                <span class="badge high">high risk</span>
+              </div>
+              <div class="prediction-item">
+                <span>Dairy</span>
+                <span class="badge medium">medium risk</span>
+              </div>
+              <div class="prediction-item">
+                <span>Meat</span>
+                <span class="badge low">low risk</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Suggested Orders -->
+          <div class="card">
+            <h2>Suggested Orders</h2>
+            <div class="orders">
+              <div class="order-item">
+                <span>Tomatoes</span>
+                <div class="order-amount">
+                  <span>5 kg</span>
+                  <button class="icon-btn">
+                    <i data-lucide="shopping-cart" class="order-icon"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="order-item">
+                <span>Chicken</span>
+                <div class="order-amount">
+                  <span>10 kg</span>
+                  <button class="icon-btn">
+                    <i data-lucide="shopping-cart" class="order-icon"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="order-item">
+                <span>Rice</span>
+                <div class="order-amount">
+                  <span>15 kg</span>
+                  <button class="icon-btn">
+                    <i data-lucide="shopping-cart" class="order-icon"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Menu Section -->
+      <section id="menu" class="section">
+        <div class="section-header">
+          <h1>Menu Optimization</h1>
+          <button class="action-btn">
+            <i data-lucide="sparkles" class="btn-icon"></i>
+            Generate Menu
+          </button>
+        </div>
+
+        <div class="grid">
+          <!-- AI Recipe Suggestions -->
+          <div class="card">
+            <h2>AI Recipe Suggestions</h2>
+            <div class="recipes">
+              <div class="recipe">
+                <div class="recipe-header">
+                  <i data-lucide="chef-hat" class="recipe-icon"></i>
+                  <span>Garden Fresh Pasta</span>
+                </div>
+                <p>Using surplus tomatoes and herbs</p>
+              </div>
+              <div class="recipe">
+                <div class="recipe-header">
+                  <i data-lucide="chef-hat" class="recipe-icon"></i>
+                  <span>Seasonal Risotto</span>
+                </div>
+                <p>With expiring vegetables</p>
+              </div>
+              <div class="recipe">
+                <div class="recipe-header">
+                  <i data-lucide="chef-hat" class="recipe-icon"></i>
+                  <span>Fusion Stir-fry</span>
+                </div>
+                <p>Optimized for current inventory</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cost Analysis -->
+          <div class="card">
+            <h2>Cost Analysis</h2>
+            <div class="costs">
+              <div class="cost-item">
+                <span>Grilled Salmon</span>
+                <div class="price-info">
+                  <span class="cost">$12.50</span>
+                  <span class="price">$28.00</span>
+                </div>
+              </div>
+              <div class="cost-item">
+                <span>Vegetarian Bowl</span>
+                <div class="price-info">
+                  <span class="cost">$8.75</span>
+                  <span class="price">$22.00</span>
+                </div>
+              </div>
+              <div class="cost-item">
+                <span>Steak Dinner</span>
+                <div class="price-info">
+                  <span class="cost">$18.90</span>
+                  <span class="price">$42.00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AI Menu Creation -->
+          <div class="card">
+            <h2>AI Menu Creation</h2>
+            <div class="menu-creation">
+              <div class="special">
+                <h3>Today's Special</h3>
+                <p>AI-generated menu items based on current inventory and market trends</p>
+              </div>
+              <button class="secondary-btn">Generate New Special</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+
+</html>
