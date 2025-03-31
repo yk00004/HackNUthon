@@ -85,7 +85,7 @@ async function sendImageForDetection(imageUrl) {
 
 
 import { GoogleGenAI } from "@google/genai";
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBSpZiX9Rqy5AEPGMQTyrID0jpW-eJAd-0" });
+const ai = new GoogleGenAI({ apiKey: "" });
 
 
 async function gemini(data) {
