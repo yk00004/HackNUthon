@@ -53,11 +53,18 @@ import FormData from "form-data";
 import fs from "fs";
 // Flask API endpoint
 const url = "http://127.0.0.1:5001/detect";
-
 async function sendImageForDetection(imageUrl) {
     try {
-        // Resolve the absolute image path
-        const imagePath = path.join(__dirname, imageUrl);
+        let imagePath;
+
+        if (imageUrl.startsWith("http")) {
+            // Download the image
+            const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
+            imagePath = "temp_image.jpg"; // Temporary local file
+            fs.writeFileSync(imagePath, response.data);
+        } else {
+            imagePath = imageUrl; // Assume it's a local path
+        }
 
         // Check if file exists
         if (!fs.existsSync(imagePath)) {
@@ -70,22 +77,27 @@ async function sendImageForDetection(imageUrl) {
         formData.append("image", fs.createReadStream(imagePath));
 
         // Send POST request to Flask API
-        const response = await axios.post(url, formData, {
+        const flaskUrl = "http://127.0.0.1:5001/detect"; // Update with your Flask API URL
+        const apiResponse = await axios.post(flaskUrl, formData, {
             headers: {
-                ...formData.getHeaders(), // Important: Set correct headers
+                ...formData.getHeaders(),
             },
         });
 
-        // console.log("Detected Objects:", response.data);
+        console.log("Detected Objects:", apiResponse.data);
+        // Delete the temp file after processing
+        if (imageUrl.startsWith("http")) {
+            fs.unlinkSync(imagePath);
+        }
+        return apiResponse.data;
     } catch (error) {
         console.error("Error:", error.message);
     }
-}
-// sendImageForDetection("download.jpeg");
+}// sendImageForDetection("download.jpeg");
 
 
 import { GoogleGenAI } from "@google/genai";
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBSpZiX9Rqy5AEPGMQTyrID0jpW-eJAd-0" });
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 
 async function gemini(data) {
@@ -96,11 +108,11 @@ async function gemini(data) {
     const resultText = response.candidates?.[0]?.content?.parts?.[0]?.text || "No response received";
     const match = resultText.match(/\*\*(.*?)\*\*/); // Extracts text inside **bold**
     const category = match ? match[1] : resultText.split(" ").pop(); // Fallback: last word
-    // console.log(category);
+    console.log(category);
     return category;
 }
 
-let name = "orange"
+// let name = "orange"
 
 // await gemini(`give me a category of ${name} like fruit, vegetable, dairy product, meat etc... give ans only one word`);
 // await gemini(`Give me average price of ${name} per kilo according to Indian market give ans only one number.`);
@@ -151,41 +163,52 @@ app.post("/signup", async (req, res) => {
     }
 });
 
-app.post("/login", passport.authenticate("local", { failureRedirect: "/inventory" }), (req, res) => {
-    
-
+app.post("/login", passport.authenticate("local", { failureRedirect: "/" }), (req, res) => {
+    console.log(req.user);
     res.redirect("/inventory");
 });
 app.post("/inventory/adddata", async (req, res) => {
     try {
-        console.log(req.body.image);
+        // console.log(req.body.image);
         const result =await cloudinary.uploader.upload(req.body.image, { folder: "HackNUthon" })
         
         console.log(result.url);
-        let url = result.secure_url;
-        // console.log(url);
+        let url = result.url;
+        console.log(url);
         
-        let detectedname=sendImageForDetection(url);
-        
-        const itemName = detectedname; // Extract item name from URL
-        // console.log(detectedname);
+        let itemNames= await sendImageForDetection(url);
+        console.log(itemNames);
         
 
         // Get category, price, and shelf life using Gemini
-        const category = await gemini(`give me a category of ${itemName} like fruit, vegetable, dairy product, meat etc... give ans only one word`);
-        const price = await gemini(`Give me average price of ${itemName} per kilo according to Indian market give ans only one number.`);
-        const life = await gemini(`give me an average life of ${itemName} in hours. Give answer only as one number`);
-        // Create and save inventory entry
-        const newInventory = new Inventory({
-            name:detectedname,
-            quntity: 10,  // Default quantity (you can modify this)
-            price: parseFloat(price) || 0,  // Convert price to number
-            category: category || "Unknown", // Fallback in case of missing response
-            shelfLife: parseInt(life) || 0, // Convert life to number
-            author: new mongoose.Types.ObjectId(), // Replace with actual user ID
-        });
-        await newInventory.save();
-        res.send(`Inventory for ${itemName} added successfully! Category: ${category}, Price: ₹${price}/kg, Shelf Life: ${life} hours.`);
+        let ans;
+        for (let itemName of itemNames) {
+            
+            const categoryResponse = await gemini(`give me a category of ${itemName} like fruit, vegetable, dairy product, meat etc... give ans only one word`);
+            const priceResponse = await gemini(`Give me average price of ${itemName} per kilo according to Indian market give ans only one number.`);
+            const lifeResponse = await gemini(`give me an average life of ${itemName} in hours. Give answer only as one number`);
+            
+            // Parsing the responses
+            const category = categoryResponse.trim() || "Unknown";
+            const price = parseFloat(priceResponse.replace(/[^\d]/g, '')) || 0;
+            const life = parseFloat(lifeResponse) || 0;
+            
+            const newInventory = new Inventory({
+                name: itemName,
+                quantity: 2,  // Assuming quantity is fixed at 2 for now
+                price: price,
+                category: category,
+                life: life,
+                author: new mongoose.Types.ObjectId(), // Replace with actual user ID
+                ExpDate: new Date(Date.now() + life * 60 * 60 * 1000)  // Example for calculating Expiry Date
+            });
+            console.log(newInventory);
+            
+            await newInventory.save();
+            // let ans=ans.append(`Inventory for ${itemName} added successfully! Category: ${category}, Price: ₹${price}/kg, Shelf Life: ${life} hours.`)
+        }
+        
+        
     } catch (error) {
         console.error("Error adding inventory:", error);
         res.status(500).send("Error adding inventory data");

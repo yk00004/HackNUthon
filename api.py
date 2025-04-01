@@ -23,7 +23,7 @@ def detect_objects():
     detected_items = [model.names[int(box[5])] for box in results[0].boxes.data] if results[0].boxes.data.numel() > 0 else []
     # detected_counts = dict(Counter(detected_counts))
 
-    return jsonify({"detected_items": detected_items})
+    return jsonify( detected_items)
 
 if __name__ == "__main__":
     app.run(port=5001, debug=True)

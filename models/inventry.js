@@ -8,10 +8,7 @@ const inventoryschema = new mongoose.Schema({
         type:Date,
         default: () => new Date(Date.now() + 4 * 24 * 60 * 60 * 1000)
     },
-    life:{
-        type:Number,
-        default:4*24,
-    },
+    life:Number,
     category:String,
     author:{
         type:mongoose.Schema.Types.ObjectId,
